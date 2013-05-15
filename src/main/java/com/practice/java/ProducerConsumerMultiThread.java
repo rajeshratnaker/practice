@@ -27,7 +27,9 @@ public class ProducerConsumerMultiThread implements Event {
 		List<Listener> list = items.get(source);
 		if (list != null) {
 			list.remove(listener);
-			items.remove(source, list);
+			if (list.isEmpty()) {
+				items.remove(source, new CopyOnWriteArrayList<Listener>());
+			}
 		}
 	}
 
